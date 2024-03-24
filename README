@@ -1,0 +1,320 @@
+Galene is a videoconferencing server that is easy to deploy and requires
+moderate server resources.  It is described at <https://galene.org>.
+
+
+# Installation
+
+See the file INSTALL in this directory for installation instructions.
+
+
+# Usage
+
+## Locations
+
+There is a landing page at the root of the server.  It contains a form
+for typing the name of a group, and a clickable list of public groups.
+
+Groups are available under `/group/groupname/`.  You may share this URL
+with others, there is no need to go through the landing page.
+
+Recordings can be accessed under `/recordings/groupname/`.  This is only
+available to the administrator of the group.
+
+Some statistics are available under `/stats.json`, with a human-readable
+version at `/stats.html`.  This is only available to the server administrator.
+
+
+## Main interface
+
+After logging in, the user is confronted with the main interface.
+
+### Buttons
+
+There are up to three buttons at the top.  The *Enable*/*Disable* button
+enables either or both the camera and the microphone (depending on the
+options set in the side menu, see below).  The *Mute* button mutes or
+unmutes the microphone.  The *Share Screen* button shares the screen or
+a window.
+
+### Side menu
+
+There is a menu on the right of the user interface.  This allows choosing
+the camera and microphone and setting the video throughput.  The
+*Blackboard mode* checkbox increases resolution and sacrifices framerate
+in favour of image quality.  The *Play local file* dialog allows streaming
+a video from a local file.
+
+### User list
+
+There is a user list on the left.  Clicking on a user opens a menu with
+actions that can be applied to that user.  Clicking on ones own username
+opens a menu with actions that are global to the group.
+
+### Text box
+
+Typing a string in the text box at the bottom of the chat pane sends
+a broadcast message to all of the users in the group.
+
+Typing a line starting with a slash `/` in the text box causes a command
+to be sent to the server.  Type `/help` to get the list of available
+commands; the output depends on whether you are an operator or not.
+
+
+# The global configuration file
+
+The server may be configured in the JSON file `data/config.json`.  This
+file may look as follows:
+
+    {
+        "admin":[{"username":"root","password":"secret"}],
+        "canonicalHost": "galene.example.org"
+    }
+
+The fields are as follows:
+
+- `admin` defines the users allowed to look at the `/stats.html` file; it
+  has the same syntax as user definitions in groups (see below).
+- `publicServer`: if true, then cross-origin access to the server is
+  allowed.  This is safe if the server is on the public Internet, but not
+  necessarily so if it is on a private network.
+- `proxyURL`: if running behind a reverse proxy, this specifies the
+  root URL that will be visible outside the proxy.
+- `canonicalHost`: the canonical name of the host running the server; this
+  will cause clients to be redirected if they use a different hostname to
+  access the server.
+
+
+# Group definitions
+
+Groups are defined by files in the `./groups` directory (this may be
+configured by the `-groups` command-line option, try `./galene -help`).
+The definition for the group called *groupname* is in the file
+`groups/groupname.json`; it does not contain the group name, which makes
+it easy to copy or link group definitions.  You may use subdirectories:
+a file `groups/teaching/networking.json` defines a group called
+*teaching/networking*.
+
+
+## Examples
+
+A typical group definition file looks like this:
+
+    {
+        "op":[{"username":"jch","password":"1234"}],
+        "allow-recording": true,
+        "allow-subgroups": true
+    }
+
+This defines a group with the operator (administrator) username *jch* and
+password *1234*.  The `allow-recording` entry says that the operator is
+allowed to record videos to disk, and the `allow-subgroups` entry says
+that subgroups will be created automatically.  This particular group does
+not allow password login for ordinary users, and is suitable if you use
+invitations (see *Stateful Tokens* below) for ordinary users.
+
+In order to allow password login for ordinary users, add a list of users
+as the entry `presenter`:
+
+    {
+        "op": [{"username":"jch","password":"1234"}],
+        "presenter": [{"username":"john", "password": "secret"}]
+    }
+
+If the group is to be publicly accessible, you may allow logins with any
+username and an empty password:
+
+    {
+        "op": [{"username":"jch","password":"1234"}],
+        "presenter": [{}],
+        "public": true
+    }
+
+The empty dictionary `{}` is a wildcard entry: it matches any username and
+any password.  Setting `public` causes the group to be displayed in the
+list of public groups on the landing page
+
+
+## Reference
+
+Every group definition file contains a single JSON directory (a list of
+entries between `{' and `}').  All fields are optional, but unless you
+specify at least one user definition (`op`, `presenter`, or `other`),
+nobody will be able to join the group.  The following fields are allowed:
+
+ - `op`, `presenter`, `other`: each of these is an array of user
+   definitions (see *Authorisation* below) and specifies the users allowed
+   to connect respectively with operator privileges, with presenter
+   privileges, and as passive listeners;
+ - `authKeys`, `authServer` and `authPortal`: see *Authorisation* below;
+ - `public`: if true, then the group is listed on the landing page;
+ - `displayName`: a human-friendly version of the group name;
+ - `description`: a human-readable description of the group; this is
+   displayed on the landing page for public groups;
+ - `contact`: a human-readable contact for this group, such as an e-mail
+   address;
+ - `comment`: a human-readable string;
+ - `max-clients`: the maximum number of clients that may join the group at
+   a time;
+ - `max-history-age`: the time, in seconds, during which chat history is
+   kept (default 14400, i.e. 4 hours);
+ - `not-before` and `expires`: the times (in ISO 8601 or RFC 3339 format)
+   between which joining the group is allowed;
+ - `allow-recording`: if true, then recording is allowed in this group;
+ - `unrestricted-tokens`: if true, then ordinary users (without the "op"
+   privilege) are allowed to create tokens;
+ - `allow-anonymous`: if true, then users may connect with an empty username;
+ - `allow-subgroups`: if true, then subgroups of the form `group/subgroup`
+   are automatically created when first accessed;
+ - `autolock`: if true, the group will start locked and become locked
+   whenever there are no clients with operator privileges;
+ - `autokick`: if true, all clients will be kicked out whenever there are
+   no clients with operator privileges; this is not recommended, prefer
+   the `autolock` option instead;
+ - `redirect`: if set, then attempts to join the group will be redirected
+   to the given URL; most other fields are ignored in this case;
+ - `codecs`: this is a list of codecs allowed in this group.  The default
+   is `["vp8", "opus"]`.
+   
+Supported video codecs include:
+
+ - `"vp8"` (compatible with all supported browsers);
+ - `"vp9"` (better video quality, but incompatible with Safari);
+ - `"av1"` (even better video quality, only supported by some browsers,
+   recording is not supported, SVC is not supported);
+ - `"h264"` (incompatible with Debian and with some Android devices, SVC
+   is not supported).
+
+Supported audio codecs include `"opus"`, `"g722"`, `"pcmu"` and `"pcma"`.
+Only Opus can be recorded to disk.  There is no good reason to use
+anything except Opus.
+
+
+## Client Authorisation
+
+Galene implements three authorisation methods: a simple username/password
+authorisation scheme, a scheme using stateful tokens and a mechanism based
+on cryptographic tokens that are generated by an external server.  The
+former two mechanism are intended to be used in standalone installations,
+while the server-based mechanism is designed to allow easy integration
+with an existing authorisation infrastructure (such as LDAP, OAuth2, or
+even Unix passwords).
+
+### Password authorisation
+
+When password authorisation is used, authorised usernames and password are
+defined directly in the group configuration file, in the `op`, `presenter`
+and `other` arrays.  Each member of the array is a dictionary, that may
+contain the fields `username` and `password`:
+
+ - if `username` is present, then the entry only matches clients that
+   specify this exact username; otherwise, any username matches;
+ - if `password` is present, then the entry only matches clients that
+   specify this exact password; otherwise, any password matches.
+
+For example, the entry
+
+    {"username": "jch", "password": "1234"}
+    
+specifies username *jch* with password *1234*, while
+
+    {"password": "1234"}
+    
+allows any username with password *1234*, and
+
+    {}
+    
+allows any username with any password.
+
+By default, empty usernames are forbidden; set the `allow-anonymous`
+option to allow empty usernames.  By default, recording is forbidden;
+specify the `allow-recording` option to allow operators to record.
+
+
+### Hashed passwords
+
+If you don't wish to store cleartext passwords on the server, you may
+generate hashed passwords with the `galene-password-generator` utility.  A
+user entry with a hashed password looks like this:
+
+    {
+        "username": "jch",
+        "password": {
+            "type": "pbkdf2",
+            "hash": "sha-256",
+            "key": "f591c35604e6aef572851d9c3543c812566b032b6dc083c81edd15cc24449913",
+            "salt": "92bff2ace56fe38f",
+            "iterations": 4096
+        }
+    }
+
+### Stateful tokens
+
+Stateful tokens allow to temporarily grant access to a user.  In order to
+generate a stateful token, the group administrator types
+
+    /invite user period
+
+where `user` is the username granted to the temporary user, and `period`
+is the time period for which the token will be valid (for example `2d`
+meaning 2 days).  The server replies with a link, valid the given time
+period, that may be sent to the temporary user for example by e-mail.
+
+Tokens may also be granted without imposing a specific username:
+
+    /invite '' 2d
+
+Stateful tokens are revokable (use the `/revoke` command) and their
+lifetime may be extended (use the `/reinvite` command).
+
+
+### Authorisation servers
+
+Galene is able to delegate authorisation decisions to an external
+authorisation server.  This makes it possible to integrate Galene with an
+existing authentication and authorisation infrastructure, such as LDAP,
+OAuth2 or even Unix passwords.
+
+When an authorisation server is used, the group configuration file
+specifies one or more public keys in JWK format.  In addition, it may
+specify either an authorisation server or an authorisation portal.
+
+    {
+        "authKeys": [{
+            "kty": "oct",
+            "alg": "HS256",
+            "k": "MYz3IfCq4Yq-UmPdNqWEOdPl4C_m9imHHs9uveDUJGQ",
+            "kid": "20211030"
+        }, {
+            "kty": "EC",
+            "alg": "ES256",
+            "crv": "P-256",
+            "x": "dElK9qBNyCpRXdvJsn4GdjrFzScSzpkz_I0JhKbYC88",
+            "y": "pBhVb37haKvwEoleoW3qxnT4y5bK35_RTP7_RmFKR6Q",
+            "kid": "20211101"
+        }]
+        "authServer": "https://auth.example.org",
+    }
+
+The `kid` field serves to distinguish among multiple keys, and must match
+the value provided by the authorisation server.  If the server doesn't
+provide a `kid`, the first key with a matching `alg` field will be used.
+
+If an authorisation server is specified, then the default client, after it
+prompts for a password, will request a token from the authorisation server
+and will join the group using token authentication.  The password is never
+communicated to the server.
+
+If an authorisation portal is specified, then the default client will
+redirect initial client connections to the authorisation portal.  The
+authorisation portal is expected to authorise the client and then redirect
+it to Galene with the `username` and `token` query parameters set.
+
+
+# Further information
+
+Galène's web page is at <https://galene.org>.
+
+Answers to common questions and issues are at <https://galene.org/faq.html>.
+
+
+-- Juliusz Chroboczek <https://www.irif.fr/~jch/>
