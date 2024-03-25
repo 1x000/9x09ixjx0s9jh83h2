@@ -1,66 +1,46 @@
-echo on
+@echo on
 
 set GOOS=windows
 set GOARCH=amd64
 set CGO_ENABLED=0
-go build -o BUILD/skynet.exe
+go build -o BUILD/JingYong_Live.exe
 
 set GOOS=linux
 set GOARCH=arm64
 set CGO_ENABLED=0
-go build -o BUILD/skynet_arm64
+go build -o BUILD/JingYong_Live_arm64
 
 set GOOS=linux
 set GOARCH=amd64
 set CGO_ENABLED=0
-go build -o BUILD/skynet_amd64
+go build -o BUILD/JingYong_Live_amd64
 
 set GOOS=linux
 set GOARCH=arm
 set CGO_ENABLED=0
-go build -o BUILD/skynet_arm
+go build -o BUILD/JingYong_Live_arm
 
 set GOOS=linux
 set GOARCH=386
 set CGO_ENABLED=0
-go build -o BUILD/skynet_386
+go build -o BUILD/JingYong_Live_386
 
 set GOOS=linux
-set GOARCH=ppc64le
+set GOARCH=s390x
 set CGO_ENABLED=0
-go build -o BUILD/skynet_ppc64le
+go build -o BUILD/JingYong_Live_linux_s390x
 
-set GOOS=linux
-set GOARCH=ppc64
+set GOOS=windows
+set GOARCH=386
 set CGO_ENABLED=0
-go build -o BUILD/skynet_ppc64
+go build -o BUILD/JingYong_Live_windows_386
 
-set GOOS=linux
-set GOARCH=mips64le
+set GOOS=windows
+set GOARCH=arm
 set CGO_ENABLED=0
-go build -o BUILD/skynet_mips64le
+go build -o BUILD/JingYong_Live_windows_arm
 
-set GOOS=linux
-set GOARCH=mips64
-set CGO_ENABLED=0
-go build -o BUILD/skynet_mips64
-
-set GOOS=linux
-set GOARCH=mipsle
-set CGO_ENABLED=0
-go build -o BUILD/skynet_mipsle
-
-set GOOS=linux
-set GOARCH=mips
-set CGO_ENABLED=0
-go build -o BUILD/skynet_mips
-
-set GOOS=darwin
-set GOARCH=amd64
-set CGO_ENABLED=0
-go build -o BUILD/skynet_darwin_amd64
-
-set GOOS=darwin
+set GOOS=windows
 set GOARCH=arm64
 set CGO_ENABLED=0
-go build -o BUILD/skynet_darwin_arm64
+go build -o BUILD/JingYong_Live_windows_arm64
