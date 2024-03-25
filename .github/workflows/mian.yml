@@ -17,9 +17,6 @@ jobs:
         uses: actions/checkout@v3
       - name: Build
         run: |
-          echo "Building JingYong_Meet for Windows 386..."
-          GOOS=windows GOARCH=386 CGO_ENABLED=0 go build -o JingYong_Meet-windows-386
-          echo "JingYong_Meet-windows-386 built"
           echo "Building JingYong_Meet for Windows amd64..."
           GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -o JingYong_Meet-windows-amd64
           echo "JingYong_Meet-windows-amd64 built"
@@ -29,9 +26,6 @@ jobs:
           echo "Building JingYong_Meet for Windows arm64..."
           GOOS=windows GOARCH=arm64 CGO_ENABLED=0 go build -o JingYong_Meet-windows-arm64
           echo "JingYong_Meet-windows-arm64 built"
-          echo "Building JingYong_Meet for Linux 386..."
-          GOOS=linux GOARCH=386 CGO_ENABLED=0 go build -o JingYong_Meet-linux-386
-          echo "JingYong_Meet-linux-386 built"
           echo "Building JingYong_Meet for Linux amd64..."
           GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o JingYong_Meet-linux-amd64
           echo "JingYong_Meet-linux-amd64 built"
@@ -49,11 +43,9 @@ jobs:
         with:
          name: build-artifacts
          path: |
-          JingYong_Meet-windows-386
           JingYong_Meet-windows-amd64
           JingYong_Meet-windows-arm
           JingYong_Meet-windows-arm64
-          JingYong_Meet-linux-386
           JingYong_Meet-linux-amd64
           JingYong_Meet-linux-arm
           JingYong_Meet-linux-arm64
