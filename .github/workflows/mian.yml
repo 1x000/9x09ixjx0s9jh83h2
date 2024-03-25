@@ -38,15 +38,39 @@ jobs:
           echo "Building JingYong_Meet for Linux s390x..."
           GOOS=linux GOARCH=s390x CGO_ENABLED=0 go build -o JingYong_Meet-linux-s390x
           echo "JingYong_Meet-linux-s390x built"
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-         name: build-artifacts
-         path: |
-          JingYong_Meet-windows-amd64
-          JingYong_Meet-windows-arm
-          JingYong_Meet-windows-arm64
-          JingYong_Meet-linux-amd64
-          JingYong_Meet-linux-arm
-          JingYong_Meet-linux-arm64
-          JingYong_Meet-linux-s390x
+         name: JingYong_Meet-windows-amd64
+         path: JingYong_Meet-windows-amd64
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+         name: JingYong_Meet-windows-arm
+         path: JingYong_Meet-windows-arm
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: JingYong_Meet-windows-arm64
+          path: JingYong_Meet-windows-arm64
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+         name: JingYong_Meet-linux-amd64
+         path: JingYong_Meet-linux-amd64
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+         name: JingYong_Meet-linux-arm
+         path: JingYong_Meet-linux-arm
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+         name: JingYong_Meet-linux-arm64
+         path: JingYong_Meet-linux-arm64
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+         name: JingYong_Meet-linux-s390x
+         path: JingYong_Meet-linux-s390x
