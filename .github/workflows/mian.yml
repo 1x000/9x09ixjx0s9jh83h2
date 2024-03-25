@@ -18,6 +18,7 @@ jobs:
       - name: Build
         run: |
           echo "Building JingYong_Meet for Windows 386..."
+<<<<<<< HEAD
           GOOS=windows GOARCH=386 CGO_ENABLED=0 go build -o JingYong_Meet-windows-386
           echo "JingYong_Meet-windows-386 built"
           echo "Building JingYong_Meet for Windows amd64..."
@@ -44,6 +45,133 @@ jobs:
           echo "Building JingYong_Meet for Linux s390x..."
           GOOS=linux GOARCH=s390x CGO_ENABLED=0 go build -o JingYong_Meet-linux-s390x
           echo "JingYong_Meet-linux-s390x built"
+=======
+          GOOS=windows GOARCH=386 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-windows-386
+          echo "JingYong_Meet-windows-386 built"
+          echo "Building JingYong_Meet for Windows amd64..."
+          GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-windows-amd64
+          echo "JingYong_Meet-windows-amd64 built"
+          echo "Building JingYong_Meet for Windows arm..."
+          GOOS=windows GOARCH=arm CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-windows-arm
+          echo "JingYong_Meet-windows-arm built"
+          echo "Building JingYong_Meet for Windows arm64..."
+          GOOS=windows GOARCH=arm64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-windows-arm64
+          echo "JingYong_Meet-windows-arm64 built"
+          echo "Building JingYong_Meet for Linux 386..."
+          GOOS=linux GOARCH=386 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-linux-386
+          echo "JingYong_Meet-linux-386 built"
+          echo "Building JingYong_Meet for Linux amd64..."
+          GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-linux-amd64
+          echo "JingYong_Meet-linux-amd64 built"
+          echo "Building JingYong_Meet for Linux arm..."
+          GOOS=linux GOARCH=arm CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-linux-arm
+          echo "JingYong_Meet-linux-arm built"
+          echo "Building JingYong_Meet for Linux arm64..."
+          GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-linux-arm64
+          echo "JingYong_Meet-linux-arm64 built"
+          echo "Building JingYong_Meet for Linux loong64..."
+          GOOS=linux GOARCH=loong64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-linux-loong64
+          echo "JingYong_Meet-linux-loong64 built"
+          echo "Building JingYong_Meet for Linux mips..."
+          GOOS=linux GOARCH=mips CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-linux-mips
+          echo "JingYong_Meet-linux-mips built"
+          echo "Building JingYong_Meet for Linux mipsle..."
+          GOOS=linux GOARCH=mipsle CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-linux-mipsle
+          echo "JingYong_Meet-linux-mipsle built"
+          echo "Building JingYong_Meet for Linux mips64..."
+          GOOS=linux GOARCH=mips64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-linux-mips64
+          echo "JingYong_Meet-linux-mips64 built"
+          echo "Building JingYong_Meet for Linux mips64le..."
+          GOOS=linux GOARCH=mips64le CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-linux-mips64le
+          echo "JingYong_Meet-linux-mips64le built"
+          echo "Building JingYong_Meet for Linux ppc64..."
+          GOOS=linux GOARCH=ppc64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-linux-ppc64
+          echo "JingYong_Meet-linux-ppc64 built"
+          echo "Building JingYong_Meet for Linux ppc64le..."
+          GOOS=linux GOARCH=ppc64le CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-linux-ppc64le
+          echo "JingYong_Meet-linux-ppc64le built"
+          echo "Building JingYong_Meet for Linux riscv64..."
+          GOOS=linux GOARCH=riscv64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-linux-riscv64
+          echo "JingYong_Meet-linux-riscv64 built"
+          echo "Building JingYong_Meet for Linux s390x..."
+          GOOS=linux GOARCH=s390x CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-linux-s390x
+          echo "JingYong_Meet-linux-s390x built"
+          echo "Building JingYong_Meet for Darwin amd64..."
+          GOOS=darwin GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-darwin-amd64
+          echo "JingYong_Meet-darwin-amd64 built"
+          echo "Building JingYong_Meet for Darwin arm64..."
+          GOOS=darwin GOARCH=arm64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-darwin-arm64
+          echo "JingYong_Meet-darwin-arm64 built"
+          echo "Building JingYong_Meet for FreeBSD 386..."
+          GOOS=freebsd GOARCH=386 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-freebsd-386
+          echo "JingYong_Meet-freebsd-386 built"
+          echo "Building JingYong_Meet for FreeBSD amd64..."
+          GOOS=freebsd GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-freebsd-amd64
+          echo "JingYong_Meet-freebsd-amd64 built"
+          echo "Building JingYong_Meet for FreeBSD arm..."
+          GOOS=freebsd GOARCH=arm CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-freebsd-arm
+          echo "JingYong_Meet-freebsd-arm built"
+          echo "Building JingYong_Meet for NetBSD 386..."
+          GOOS=netbsd GOARCH=386 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-netbsd-386
+          echo "JingYong_Meet-netbsd-386 built"
+          echo "Building JingYong_Meet for NetBSD amd64..."
+          GOOS=netbsd GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-netbsd-amd64
+          echo "JingYong_Meet-netbsd-amd64 built"
+          echo "Building JingYong_Meet for NetBSD arm..."
+          GOOS=netbsd GOARCH=arm CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-netbsd-arm
+          echo "JingYong_Meet-netbsd-arm built"
+          echo "Building JingYong_Meet for OpenBSD 386..."
+          GOOS=openbsd GOARCH=386 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-openbsd-386
+          echo "JingYong_Meet-openbsd-386 built"
+          echo "Building JingYong_Meet for OpenBSD amd64..."
+          GOOS=openbsd GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-openbsd-amd64
+          echo "JingYong_Meet-openbsd-amd64 built"
+          echo "Building JingYong_Meet for OpenBSD arm..."
+          GOOS=openbsd GOARCH=arm CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-openbsd-arm
+          echo "JingYong_Meet-openbsd-arm built"
+          echo "Building JingYong_Meet for OpenBSD arm64..."
+          GOOS=openbsd GOARCH=arm64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-openbsd-arm64
+          echo "JingYong_Meet-openbsd-arm64 built"
+          echo "Building JingYong_Meet for Plan9 386..."
+          GOOS=plan9 GOARCH=386 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-plan9-386
+          echo "JingYong_Meet-plan9-386 built"
+          echo "Building JingYong_Meet for Plan9 amd64..."
+          GOOS=plan9 GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-plan9-amd64
+          echo "JingYong_Meet-plan9-amd64 built"
+          echo "Building JingYong_Meet for Plan9 arm..."
+          GOOS=plan9 GOARCH=arm CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-plan9-arm
+          echo "JingYong_Meet-plan9-arm built"
+          echo "Building JingYong_Meet for Solaris amd64..."
+          GOOS=solaris GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-solaris-amd64
+          echo "JingYong_Meet-solaris-amd64 built"
+          echo "Building JingYong_Meet for Android 386..."
+          GOOS=android GOARCH=386 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-android-386
+          echo "JingYong_Meet-android-386 built"
+          echo "Building JingYong_Meet for Android amd64..."
+          GOOS=android GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-android-amd64
+          echo "JingYong_Meet-android-amd64 built"
+          echo "Building JingYong_Meet for Android arm..."
+          GOOS=android GOARCH=arm CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-android-arm
+          echo "JingYong_Meet-android-arm built"
+          echo "Building JingYong_Meet for Android arm64..."
+          GOOS=android GOARCH=arm64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-android-arm64
+          echo "JingYong_Meet-android-arm64 built"
+          echo "Building JingYong_Meet for iOS arm64..."
+          GOOS=ios GOARCH=arm64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-ios-arm64
+          echo "JingYong_Meet-ios-arm64 built"
+          echo "Building JingYong_Meet for WASM..."
+          GOOS=js GOARCH=wasm CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-wasm
+          echo "JingYong_Meet-wasm built"
+          echo "Building JingYong_Meet for DragonFly amd64..."
+          GOOS=dragonfly GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-dragonfly-amd64
+          echo "JingYong_Meet-dragonfly-amd64 built"
+          echo "Building JingYong_Meet for Illumos amd64..."
+          GOOS=illumos GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-illumos-amd64
+          echo "JingYong_Meet-illumos-amd64 built"
+          echo "Building JingYong_Meet for WASIP1..."
+          GOOS=wasip1 GOARCH=wasm CGO_ENABLED=0 go build -ldflags "-w -s" -o JingYong_Meet-wasip1
+          echo "JingYong_Meet-wasip1 built"
+>>>>>>> add872e038a676db6b1c38eef5d86af5c8ca817c
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -57,4 +185,33 @@ jobs:
           JingYong_Meet-linux-amd64
           JingYong_Meet-linux-arm
           JingYong_Meet-linux-arm64
+<<<<<<< HEAD
           JingYong_Meet-linux-s390x
+=======
+          JingYong_Meet-linux-loong64
+          JingYong_Meet-linux-mips
+          JingYong_Meet-linux-mipsle
+          JingYong_Meet-linux-mips64
+          JingYong_Meet-linux-mips64le
+          JingYong_Meet-linux-ppc64
+          JingYong_Meet-linux-ppc64le
+          JingYong_Meet-linux-riscv64
+          JingYong_Meet-linux-s390x
+          JingYong_Meet-darwin-amd64
+          JingYong_Meet-darwin-arm64
+          JingYong_Meet-freebsd-386
+          JingYong_Meet-freebsd-amd64
+          JingYong_Meet-freebsd-arm
+          JingYong_Meet-netbsd-386
+          JingYong_Meet-netbsd-amd64
+          JingYong_Meet-netbsd-arm
+          JingYong_Meet-openbsd-386
+          JingYong_Meet-openbsd-amd64
+          JingYong_Meet-openbsd-arm
+          JingYong_Meet-openbsd-arm64
+          JingYong_Meet-plan9-386
+          JingYong_Meet-plan9-amd64
+          JingYong_Meet-plan9-arm
+          JingYong_Meet-solaris-amd64
+          JingYong_Meet-wasip1-wasm
+>>>>>>> add872e038a676db6b1c38eef5d86af5c8ca817c
