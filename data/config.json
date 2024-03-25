@@ -1,3 +1,5 @@
 {
-    "proxyURL": "https://meet.xpdbk.com/"
+    "proxyURL": "https://meet.xpdbk.com/",
+    "admin":[{"username":"awa114514","password":"awa114514"}],
+    "publicServer": true
 }
